@@ -6,11 +6,11 @@ var UserProfileActions = require('../actions/UserProfileActions');
 var Messages = React.createClass({
     render: function() {
         return (
-            <div>
+            <div className="component">
                 <h1>Messages</h1>
 
-                {this.renderMessages()}
                 {this.renderAddMessage()}
+                {this.renderMessages()}
             </div>
         );
     },
@@ -18,11 +18,16 @@ var Messages = React.createClass({
     renderMessages: function() {
         return this.props.messages.map(function(message, i) {
             return (
-                <div key={i}>
-                    <div>From: {this.props.name}  &lt;{this.props.email}&gt; <img src={this.props.photo} /></div>
-                    <div>To: {message.to.name} &lt;{message.to.email} &gt; <img src={message.to.photo} /></div>
-                    <div>Message: {message.text}</div>
-                    <hr />
+                <div className="message" key={i}>
+                    <div className="from">
+                        <span>From: {this.props.name}  &lt;{this.props.email}&gt; <img src={this.props.photo} /></span>
+                    </div>
+
+                    <div className="to">
+                        <span>To: {message.to.name} &lt;{message.to.email} &gt; <img src={message.to.photo} /></span>
+                    </div>
+
+                    <div className="message-text">&quot;{message.text}&quot;</div>
                 </div>
             );
         }, this);
@@ -33,14 +38,16 @@ var Messages = React.createClass({
             <div>
                 <div>
                     <input
-                    placeholder="Send To"
+                    placeholder="Send To:"
                     ref="sendTo"
                     type="text" />
                 </div>
                 <div>
-                    <textarea
+                    <input
                     placeholder="New Message"
-                    ref="message"></textarea>
+                    onKeyDown={this.onKeyDownMessage}
+                    ref="message"
+                    type="text" />
                 </div>
                 <button onClick={this.onSend}>Send</button>
             </div>
@@ -58,6 +65,13 @@ var Messages = React.createClass({
 
         text.value = '';
         to.value = '';
+    },
+
+    onKeyDownMessage: function(evt) {
+        if (evt.keyCode === 13) {
+            this.onSend();
+            this.refs.sendTo.getDOMNode().focus();
+        }
     }
 });
 

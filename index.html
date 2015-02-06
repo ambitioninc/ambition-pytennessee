@@ -4,14 +4,106 @@
         <meta charset="utf-8" />
         <title>User Profile</title>
         <style>
+            @font-face{
+                font-family: 'Roboto';
+                src: url('static/fonts/roboto.ttf');
+            }
+
             body {
-                font-family: 'Helvetica', sans-serif;
+                font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
             }
 
             img {
                 border-radius: 50%;
+                display: block;
+                height: 100px;
+                margin: 0 auto;
+                width: 100px;
+            }
+
+            h1 {
+                font-size: 30px;
+                margin: 0;
+                text-align: center;
+            }
+
+            input[type='text'] {
+                border: 0 solid #ddd;
+                border-bottom-width: 2px;
+                font-size: 20px;
+                margin-top: 4px;
+                outline: none;
+                padding: 8px 4px;
+                transition: border-color 0.5s;
+                width: 50%;
+            }
+
+            input[type='text']:focus {
+                border-color: #00afcc;
+            }
+
+            button {
+                background: #00afcc;
+                border: none;
+                border-radius: 3px;
+                color: #fff;
                 height: 30px;
+                margin: 20px 0 20px 0;
+                outline: none;
+                text-transform: uppercase;
+                width: 80px;
+            }
+
+            .user-profile {
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-shadow: 0 3px 4px 1px rgba(0,0,0,0.45);
+                margin: 40px auto;
+                width: 600px;
+            }
+
+            .component {
+                border-bottom: 2px dotted #ddd;
+                padding: 10px 0 20px 0;
+                text-align: center;
+            }
+
+            .message {
+                border-top: 1px solid #ddd;
+                box-sizing: border-box;
+                padding: 10px;;
+                text-align: left;
+            }
+
+            .message img {
+                display: inline-block;
+                height: 30px;
+                float: right;
+                position: relative;
+                top: 6px;
                 width: 30px;
+            }
+
+            .photo {
+                border: 2px solid #ddd;
+                cursor: pointer;
+                margin-top: 14px;
+            }
+
+            .from, .to {
+                height: 40px;
+                line-height: 40px;
+                margin: 0 auto;
+                width: 70%;
+            }
+
+            .message-text {
+                margin: 14px auto 0 auto;
+                width: 70%
+            }
+
+            .component:last-child, .message:last-child {
+                border-bottom-width: 0;
             }
         </style>
     </head>
