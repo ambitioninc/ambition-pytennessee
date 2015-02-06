@@ -26,7 +26,7 @@ var UserProfileApp = React.createClass({
 
     render: function() {
         return (
-            <div>
+            <div className="user-profile">
                 <Contact
                 email={this.state.email}
                 name={this.state.name} />

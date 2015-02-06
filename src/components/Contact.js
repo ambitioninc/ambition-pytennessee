@@ -6,7 +6,7 @@ var UserProfileActions = require('../actions/UserProfileActions');
 var Contact = React.createClass({
     render: function() {
         return (
-            <div>
+            <div className="component">
                 <h1>Contact Info</h1>
 
                 <div>
