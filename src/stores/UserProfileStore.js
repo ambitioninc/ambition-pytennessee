@@ -6,19 +6,19 @@ var UserProfileActions = require('../actions/UserProfileActions');
 var _users = [{
     email: 'jeff@cool.com',
     name: 'Jeff',
-    photo: 'jeff.jpg'
+    photo: 'static/images/jeff.jpg'
 }, {
     email: 'micah@cool.com',
     name: 'Micah',
-    photo: 'micah.jpg'
+    photo: 'static/images/micah.jpg'
 }, {
     email: 'rob@cool.com',
     name: 'Rob',
-    photo: 'rob.jpg'
+    photo: 'static/images/rob.jpg'
 }, {
     email: 'wes@cool.com',
     name: 'Wes',
-    photo: 'wes.jpg'
+    photo: 'static/images/wes.jpg'
 }];
 
 var _storeData = {
