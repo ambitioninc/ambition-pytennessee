@@ -33,7 +33,7 @@ var UserProfileStore = Reflux.createStore({
 
     onSendMessage: function(message) {
         var to = _users.filter(function(user) {
-            return user.email === message.to;
+            return user.name.toLowerCase() === message.to.toLowerCase();
         })[0];
 
         if (to) {

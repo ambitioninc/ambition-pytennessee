@@ -19558,7 +19558,7 @@ var UserProfileActions = require('../actions/UserProfileActions');
 var Contact = React.createClass({displayName: "Contact",
     render: function() {
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "component"}, 
                 React.createElement("h1", null, "Contact Info"), 
 
                 React.createElement("div", null, 
@@ -19601,11 +19601,11 @@ var UserProfileActions = require('../actions/UserProfileActions');
 var Messages = React.createClass({displayName: "Messages",
     render: function() {
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "component"}, 
                 React.createElement("h1", null, "Messages"), 
 
-                this.renderMessages(), 
-                this.renderAddMessage()
+                this.renderAddMessage(), 
+                this.renderMessages()
             )
         );
     },
@@ -19613,11 +19613,16 @@ var Messages = React.createClass({displayName: "Messages",
     renderMessages: function() {
         return this.props.messages.map(function(message, i) {
             return (
-                React.createElement("div", {key: i}, 
-                    React.createElement("div", null, "From: ", this.props.name, "  <", this.props.email, "> ", React.createElement("img", {src: this.props.photo})), 
-                    React.createElement("div", null, "To: ", message.to.name, " <", message.to.email, " > ", React.createElement("img", {src: message.to.photo})), 
-                    React.createElement("div", null, "Message: ", message.text), 
-                    React.createElement("hr", null)
+                React.createElement("div", {className: "message", key: i}, 
+                    React.createElement("div", {className: "from"}, 
+                        React.createElement("span", null, "From: ", this.props.name, "  <", this.props.email, "> ", React.createElement("img", {src: this.props.photo}))
+                    ), 
+
+                    React.createElement("div", {className: "to"}, 
+                        React.createElement("span", null, "To: ", message.to.name, " <", message.to.email, " > ", React.createElement("img", {src: message.to.photo}))
+                    ), 
+
+                    React.createElement("div", {className: "message-text"}, "\"", message.text, "\"")
                 )
             );
         }, this);
@@ -19628,14 +19633,16 @@ var Messages = React.createClass({displayName: "Messages",
             React.createElement("div", null, 
                 React.createElement("div", null, 
                     React.createElement("input", {
-                    placeholder: "Send To", 
+                    placeholder: "Send To:", 
                     ref: "sendTo", 
                     type: "text"})
                 ), 
                 React.createElement("div", null, 
-                    React.createElement("textarea", {
+                    React.createElement("input", {
                     placeholder: "New Message", 
-                    ref: "message"})
+                    onKeyDown: this.onKeyDownMessage, 
+                    ref: "message", 
+                    type: "text"})
                 ), 
                 React.createElement("button", {onClick: this.onSend}, "Send")
             )
@@ -19653,6 +19660,13 @@ var Messages = React.createClass({displayName: "Messages",
 
         text.value = '';
         to.value = '';
+    },
+
+    onKeyDownMessage: function(evt) {
+        if (evt.keyCode === 13) {
+            this.onSend();
+            this.refs.sendTo.getDOMNode().focus();
+        }
     }
 });
 
@@ -19667,15 +19681,29 @@ var UserProfileActions = require('../actions/UserProfileActions');
 
 var Photo = React.createClass({displayName: "Photo",
     render: function() {
+        var inputStyle = {display: 'none'};
+
         return (
-            React.createElement("div", null, 
-                React.createElement("h1", null, "Photo"), 
+            React.createElement("div", {className: "component"}, 
+                React.createElement("h1", null, "Profile Photo"), 
 
-                React.createElement("img", {src: this.props.photo}), 
+                React.createElement("img", {
+                className: "photo", 
+                onClick: this.onClickPhoto, 
+                src: this.props.photo}), 
 
-                React.createElement("input", {onChange: this.onChangePhoto, type: "file"})
+                React.createElement("input", {
+                onChange: this.onChangePhoto, 
+                ref: "file", 
+                style: inputStyle, 
+                type: "file"})
+
             )
         );
+    },
+
+    onClickPhoto: function() {
+        this.refs.file.getDOMNode().click();
     },
 
     onChangePhoto: function(evt) {
@@ -19725,7 +19753,7 @@ var UserProfileApp = React.createClass({displayName: "UserProfileApp",
 
     render: function() {
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "user-profile"}, 
                 React.createElement(Contact, {
                 email: this.state.email, 
                 name: this.state.name}), 
@@ -19790,7 +19818,7 @@ var UserProfileStore = Reflux.createStore({
 
     onSendMessage: function(message) {
         var to = _users.filter(function(user) {
-            return user.email === message.to;
+            return user.name.toLowerCase() === message.to.toLowerCase();
         })[0];
 
         if (to) {

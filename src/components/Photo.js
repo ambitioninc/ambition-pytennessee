@@ -5,15 +5,29 @@ var UserProfileActions = require('../actions/UserProfileActions');
 
 var Photo = React.createClass({
     render: function() {
+        var inputStyle = {display: 'none'};
+
         return (
-            <div>
-                <h1>Photo</h1>
+            <div className="component">
+                <h1>Profile Photo</h1>
 
-                <img src={this.props.photo} />
+                <img
+                className="photo"
+                onClick={this.onClickPhoto}
+                src={this.props.photo} />
 
-                <input onChange={this.onChangePhoto} type="file" />
+                <input
+                onChange={this.onChangePhoto}
+                ref="file"
+                style={inputStyle}
+                type="file" />
+
             </div>
         );
+    },
+
+    onClickPhoto: function() {
+        this.refs.file.getDOMNode().click();
     },
 
     onChangePhoto: function(evt) {
